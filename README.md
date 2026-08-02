@@ -13,3 +13,7 @@ Ekip üyelerine özel rol bazlı yönetim ve operasyon uygulaması.
 Bu klasörü ayrı GitHub reposuna yükleyin: `atabari-control-center`.
 Railway'de ayrı servis oluşturup ATABARI Web ile aynı PostgreSQL servisinden `DATABASE_URL` referansı ekleyin.
 Custom Domain olarak `control.atabari.live` bağlayın.
+
+## V4.0.1 Tema güncellemesi
+
+Control Center'ın bütün ekranları ATABARI siyah-kırmızı tasarım sistemine geçirildi. Tema tercihleri korunur; Graphite, Ocean, Emerald ve Light aynı yeni bileşen sistemiyle çalışır.
