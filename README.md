@@ -17,3 +17,8 @@ Custom Domain olarak `control.atabari.live` bağlayın.
 ## V4.0.1 Tema güncellemesi
 
 Control Center'ın bütün ekranları ATABARI siyah-kırmızı tasarım sistemine geçirildi. Tema tercihleri korunur; Graphite, Ocean, Emerald ve Light aynı yeni bileşen sistemiyle çalışır.
+
+
+## E-posta ile şifre sıfırlama
+
+Giriş ekranındaki **Şifremi unuttum** bağlantısı Natro SMTP üzerinden 30 dakika geçerli, tek kullanımlık bağlantı gönderir. Şifre yenilendiğinde kullanıcının açık oturumları kapatılır ve güvenlik bildirimi gönderilir. Railway'de `APP_URL=https://control.atabari.live` ve SMTP değişkenleri tanımlı olmalıdır.
