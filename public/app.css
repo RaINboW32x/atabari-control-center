@@ -23,3 +23,4 @@ body[data-density=compact]{--gap:13px;font-size:13px}body[data-font=small]{font-
 @media(max-width:440px){.stats,.three{grid-template-columns:1fr}.topbar #miniName{display:none}}
 
 .forgot-link{border:0;background:transparent;color:var(--primary);font-weight:700;cursor:pointer;padding:6px 0;text-align:left}.forgot-link:hover{text-decoration:underline}.forgot-box{max-width:480px}.login-box .btn.primary{width:100%}
+.password-rules{display:grid;gap:6px;padding:12px 14px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.02);font-size:12px}.password-rules span:before{content:'✓';color:var(--primary);margin-right:7px}

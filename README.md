@@ -22,3 +22,7 @@ Control Center'ın bütün ekranları ATABARI siyah-kırmızı tasarım sistemin
 ## E-posta ile şifre sıfırlama
 
 Giriş ekranındaki **Şifremi unuttum** bağlantısı Natro SMTP üzerinden 30 dakika geçerli, tek kullanımlık bağlantı gönderir. Şifre yenilendiğinde kullanıcının açık oturumları kapatılır ve güvenlik bildirimi gönderilir. Railway'de `APP_URL=https://control.atabari.live` ve SMTP değişkenleri tanımlı olmalıdır.
+
+## İlk Owner kurulumu
+
+Varsayılan admin hesabı oluşturulmaz. Veritabanında aktif Owner yoksa `https://control.atabari.live` ilk açılışta Owner kurulum ekranını gösterir. Ayrıntılar için `OWNER-KURULUM.md` dosyasını okuyun.
