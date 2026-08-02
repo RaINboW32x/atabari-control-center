@@ -6,7 +6,7 @@ const PORT=Number(process.env.PORT||3000),ROOT=__dirname,PUB=path.join(ROOT,'pub
 const PUBLIC_HOST=String(process.env.PUBLIC_HOST||'').toLowerCase().replace(/^https?:\/\//,'').replace(/\/$/,'');
 const CONTROL_HOST=String(process.env.CONTROL_HOST||'').toLowerCase().replace(/^https?:\/\//,'').replace(/\/$/,'');
 function requestHost(req){return String(req.headers['x-forwarded-host']||req.headers.host||'').split(',')[0].trim().toLowerCase().split(':')[0]}
-function hostMode(req){const h=requestHost(req);if(CONTROL_HOST&&h===CONTROL_HOST)return 'control';if(PUBLIC_HOST&&h===PUBLIC_HOST)return 'public';return 'legacy'}
+function hostMode(req){return 'control'}
 if(!DB){console.error('DATABASE_URL tanımlı değil');process.exit(1)}
 const internal=/railway\.internal/i.test(DB);const ssl=process.env.DATABASE_SSL==='true'||(process.env.DATABASE_SSL!=='false'&&!internal&&process.env.NODE_ENV==='production');
 const pool=new Pool({connectionString:DB,ssl:ssl?{rejectUnauthorized:false}:false,max:10,connectionTimeoutMillis:10000});let databaseReady=false,databaseError=null;
@@ -18,7 +18,7 @@ const clean=(v,m=500)=>String(v||'').trim().slice(0,m),slugify=v=>clean(v,80).to
 const validDate=v=>/^\d{4}-\d{2}-\d{2}$/.test(v),validTime=v=>/^([01]\d|2[0-3]):[0-5]\d$/.test(v);
 function hash(p,s){return crypto.scryptSync(p,s,64).toString('hex')}
 const tokenHash=t=>crypto.createHash('sha256').update(String(t)).digest('hex');
-function publicBaseUrl(req){const configured=clean(process.env.APP_URL,500).replace(/\/$/,'');if(configured)return configured;const proto=req.headers['x-forwarded-proto']||'http';return `${proto}://${req.headers.host}`;}
+function publicBaseUrl(req){const configured=clean(process.env.APP_URL||'https://control.atabari.live',500).replace(/\/$/,'');if(configured)return configured;const proto=req.headers['x-forwarded-proto']||'http';return `${proto}://${req.headers.host}`;}
 function mailTransport(){if(!process.env.SMTP_HOST||!process.env.SMTP_USER||!process.env.SMTP_PASS)return null;return nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||587),secure:String(process.env.SMTP_SECURE||'false')==='true',auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASS},tls:{rejectUnauthorized:String(process.env.SMTP_TLS_REJECT_UNAUTHORIZED||'true')!=='false'}})}
 function emailFrame(title,content){return `<div style="background:#0b0b0d;padding:32px 12px;font-family:Arial,sans-serif;color:#fff"><div style="max-width:580px;margin:auto;background:#151518;border:1px solid #2b2b31;border-radius:18px;overflow:hidden"><div style="padding:22px 26px;border-bottom:3px solid #e52b24"><div style="font-size:13px;color:#aaa;letter-spacing:2px">ATABARI CONTROL CENTER</div><h2 style="margin:8px 0 0;color:#fff">${title}</h2></div><div style="padding:26px;line-height:1.65">${content}</div><div style="padding:18px 26px;background:#101012;color:#777;font-size:12px">Bu e-posta ATABARI Control Center tarafından otomatik gönderilmiştir.</div></div></div>`}
 async function sendMail({to,subject,text,html}){const tr=mailTransport();if(!tr)throw new Error('E-posta servisi yapılandırılmadı.');return tr.sendMail({from:process.env.EMAIL_FROM||process.env.SMTP_USER,to,subject,text,html})}
