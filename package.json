@@ -1,0 +1,19 @@
+{
+  "name": "atabari-control-center",
+  "version": "4.0.0-alpha.1",
+  "private": true,
+  "description": "ATABARI yayın operasyonları için rol bazlı Control Center",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "check": "node --check server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.1",
+    "nodemailer": "^7.0.5",
+    "pg": "^8.16.3"
+  }
+}
